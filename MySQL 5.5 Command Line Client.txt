@@ -1,0 +1,72 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database hospital;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use hospital;
+Database changed
+mysql> create table hosp (name varchar(10),age int(2),adress varchar(20),phone int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc hosp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(2)      | YES  |     | NULL    |       |
+| adress | varchar(20) | YES  |     | NULL    |       |
+| phone  | int(10)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table hosp add city varcher(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcher(20)' at line 1
+mysql> alter table hosp add city varchar(20);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> dwsc hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dwsc hosp' at line 1
+mysql> desc hosp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(2)      | YES  |     | NULL    |       |
+| adress | varchar(20) | YES  |     | NULL    |       |
+| phone  | int(10)     | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table hosp drop city;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc hosp
+    ->
+    -> desc hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc hosp' at line 3
+mysql> desc hosp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(2)      | YES  |     | NULL    |       |
+| adress | varchar(20) | YES  |     | NULL    |       |
+| phone  | int(10)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql>
