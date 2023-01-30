@@ -1,0 +1,110 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create hospital;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hospital' at line 1
+mysql> use hosp;
+ERROR 1049 (42000): Unknown database 'hosp'
+mysql> use hospital;
+Database changed
+mysql> disc hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'disc hosp' at line 1
+mysql> desc hosp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(2)      | YES  |     | NULL    |       |
+| adress | varchar(20) | YES  |     | NULL    |       |
+| phone  | int(10)     | YES  |     | NULL    |       |
+| issue  | varchar(20) | YES  |     | NULL    |       |
+| regno  | int(3)      | NO   | PRI | 0       |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> select * from hosp ;
++--------+------+-----------+------------+-------------+-------+
+| name   | age  | adress    | phone      | issue       | regno |
++--------+------+-----------+------------+-------------+-------+
+| vishnu |   13 | chennai   |  333333333 | cold        |   123 |
+| nani   |   22 | ongole    |  999999999 | fever       |   191 |
+| nani   |   11 | ongole    | 1212121212 | fever       |   333 |
+| lucky  |   22 | kodur     |  888888888 | aids        |   444 |
+| dillu  |   33 | teledu    |  666666666 | piles       |   555 |
+| dillu  |   33 | gurtuledu |   48484848 | gas trouble |   666 |
++--------+------+-----------+------------+-------------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from hosp where regno='333';
++------+------+--------+------------+-------+-------+
+| name | age  | adress | phone      | issue | regno |
++------+------+--------+------------+-------+-------+
+| nani |   11 | ongole | 1212121212 | fever |   333 |
++------+------+--------+------------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from hosp order by age;
++--------+------+-----------+------------+-------------+-------+
+| name   | age  | adress    | phone      | issue       | regno |
++--------+------+-----------+------------+-------------+-------+
+| nani   |   11 | ongole    | 1212121212 | fever       |   333 |
+| vishnu |   13 | chennai   |  333333333 | cold        |   123 |
+| nani   |   22 | ongole    |  999999999 | fever       |   191 |
+| lucky  |   22 | kodur     |  888888888 | aids        |   444 |
+| dillu  |   33 | teledu    |  666666666 | piles       |   555 |
+| dillu  |   33 | gurtuledu |   48484848 | gas trouble |   666 |
++--------+------+-----------+------------+-------------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from hosp where age>(select avg(age) from hosp);
++-------+------+-----------+-----------+-------------+-------+
+| name  | age  | adress    | phone     | issue       | regno |
++-------+------+-----------+-----------+-------------+-------+
+| dillu |   33 | teledu    | 666666666 | piles       |   555 |
+| dillu |   33 | gurtuledu |  48484848 | gas trouble |   666 |
++-------+------+-----------+-----------+-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create view patient_view has select name age regno issue from hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'has select name age regno issue from hosp' at line 1
+mysql> create view patient_view has select name,age,regno,issue from hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'has select name,age,regno,issue from hosp' at line 1
+mysql> create view patient_view has select name,age,regno, issue from hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'has select name,age,regno, issue from hosp' at line 1
+mysql> create view hosp_view has select name, age, regno, issue from hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'has select name, age, regno, issue from hosp' at line 1
+mysql> create view patient_view as select name, age, regno, issue from hosp;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from patient_view;
++--------+------+-------+-------------+
+| name   | age  | regno | issue       |
++--------+------+-------+-------------+
+| vishnu |   13 |   123 | cold        |
+| nani   |   22 |   191 | fever       |
+| nani   |   11 |   333 | fever       |
+| lucky  |   22 |   444 | aids        |
+| dillu  |   33 |   555 | piles       |
+| dillu  |   33 |   666 | gas trouble |
++--------+------+-------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> create index regno on hosp(name);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index for hosp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'for hosp' at line 1
+mysql> show index for hospital;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'for hospital' at line 1
+mysql>
